@@ -1,23 +1,24 @@
 workflows:
-  beats-android:
-    name: Beats — Android APK
+  android-release:
+    name: Aura Music – Android Release
     max_build_duration: 60
     environment:
-      flutter: stable
+      flutter: 3.22.2 # pin to latest stable
       java: 17
-      vars:
-        PACKAGE_NAME: "com.example.beats"
-
     scripts:
-      - name: Récupérer les dépendances
+      - name: Get packages
         script: flutter pub get
-
-      - name: Construire l'APK Release
-        script: flutter build apk --release --build-name=1.0.0 --build-number=1
-
+      - name: Analyze
+        script: flutter analyze --no-fatal-infos
+      - name: Unit tests
+        script: flutter test
+      - name: Build APK
+        script: |
+          flutter build apk --release \
+            --dart-define=FLUTTER_BUILD_NAME=$PROJECT_BUILD_NUMBER \
+            --dart-define=FLUTTER_BUILD_NUMBER=$PROJECT_BUILD_NUMBER
     artifacts:
-      - build/app/outputs/flutter-apk/*.apk
-
+      - build/app/outputs/apk/release/*.apk
     publishing:
       email:
         recipients:
