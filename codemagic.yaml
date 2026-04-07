@@ -1,12 +1,12 @@
 workflows:
-  resibook-proprietaire-android:
-    name: RésiBook Propriétaire — Android APK
+  beats-android:
+    name: Beats — Android APK
     max_build_duration: 60
     environment:
       flutter: stable
       java: 17
       vars:
-        PACKAGE_NAME: "com.resibook.proprietaire"
+        PACKAGE_NAME: "com.example.beats"
 
     scripts:
       - name: Récupérer les dépendances
