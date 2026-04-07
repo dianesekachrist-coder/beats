@@ -1,0 +1,27 @@
+workflows:
+  resibook-proprietaire-android:
+    name: RésiBook Propriétaire — Android APK
+    max_build_duration: 60
+    environment:
+      flutter: stable
+      java: 17
+      vars:
+        PACKAGE_NAME: "com.resibook.proprietaire"
+
+    scripts:
+      - name: Récupérer les dépendances
+        script: flutter pub get
+
+      - name: Construire l'APK Release
+        script: flutter build apk --release --build-name=1.0.0 --build-number=1
+
+    artifacts:
+      - build/app/outputs/flutter-apk/*.apk
+
+    publishing:
+      email:
+        recipients:
+          - dianesekachrist@gmail.com
+        notify:
+          success: true
+          failure: true
